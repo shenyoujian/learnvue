@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+   
+</head>
+<body>
+    <div id="app">
+        
+        <p v-cloak>++++{{msg}}</p>
+        <h4 v-text="msg">+++++</h4>
+
+        <div v-html="msg2"></div>
+
+        <!--v-bind：是vue中，提供的用于绑定属性的指令-->
+        <!-- <input id="button" type="button" value="按钮" v-bind:title="title"></input> -->
+        <!--v-bind 可以简写为 ：要绑定的属性-->
+        <input type="button" value="按钮" :title="title"></input>
+        <!--v-bind中， 可以写合法的js表达式-->
+        <input type="button" value="按钮" :title="title + '123'"></input>
+
+
+        <!--vue中提供了v-on：事件绑定机制,这是错的，里面只是表达式-->
+        <!--<input type="button" value="按钮" v-on:click="alert{'hello'}">-->
+        <input type="button" value="按钮" v-on:click="show"></input>
+        <input type="button" value="按钮" @click="show"></input>
+    
+    </div>
+
+    
+
+   
+
+
+    <!--1、如果使用插值表达式，把js放入数据要填充区域的下面然后再使用slow 3g 就会显示{{msg}}-->
+    <script src="./lib/vue-2.4.0.js"></script>
+
+    <script>
+        new Vue({
+           el : '#app',
+           data : {
+               msg : '123',
+               msg2 : '<h1>456</h1>',
+               title : '这是一个按钮',
+           },
+
+           methods: {
+               
+               show : function() {    //这个methods属性中定义了当前vue实例所有可用的方法
+                    alert("hello")
+                }
+           }
+        })
+    </script>
+</body>
+</html>
+
+
+ <!--问题1、如果使用插值表达式，把js放入数据要填充区域的下面然后再使用slow 3g 就会显示{{msg}}，这样别人再加载的时候就能看到我们的代码-->
+ <!--
+     解决方法一：
+    使用v-cloak属性能够解决插值表达式闪烁的问题
+    解决方法二：
+    使用v-text属性同样也能解决插值表达式闪烁问题
+
+    v-cloak 和 v-text的区别：
+        相同：都能解决插值表达式闪烁的问题
+        不同：v-text会覆盖元素中原本的内容，但是插值表达式只能替换自己的占位符的内容不会把整个元素内容清空
+    
+    如果数据data里有html代码，使用v-text和插值表达式都会把html代码原样输出
+    使用v-html就不会了,但是v-html也会覆盖元素中原本的内容
+-->
+
+
+<!-- 1. 如何定义一个基本的Vue代码结构 -->
+<!-- 2. 插值表达式 和  v-text   -->
+<!-- 3. v-cloak -->
+<!-- 4. v-html -->
+<!-- 5. v-bind   Vue提供的属性绑定机制   缩写是 : -->
+<!-- 6. v-on     Vue提供的事件绑定机制   缩写是 @ -->

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <style>
+        .inner {
+            background-color: blue;
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--使用.stop阻止冒泡，js的冒泡机制自己去了解，没有stop点击按钮就会触发buttonClick和divClick两个方法 -->
+        <!-- <div class="inner" @click="divClick">
+            <input type="button" value="按钮" @click.stop="buttonClick">
+        </div> -->
+
+        <!--使用.prevent阻止默认行为,使用之后点击链接不会再跳出百度网站-->
+        <!-- <a href="http://baidu.com" @click.prevent="linkClick">百度</a> -->
+
+        <!--使用.capture实现捕获触发事件的机制, 这样点击按钮就会先捕获div先输出div语句再输出按钮的语句-->
+         <!-- <div class="inner" @click.capture="divClick">
+            <input type="button" value="按钮" @click="buttonClick">
+        </div> -->
+
+        <!--如果只想只能点击div才触发div事件，而不是通过冒泡，捕获来触发div事件，可以使用self，意思是只有点击自己才触发事件-->
+        <div class="inner" @click.self="divClick">
+            <input type="button" value="按钮" @click="buttonClick">
+        </div>
+    </div>
+    <script>
+         var vue = new Vue({
+            el : '#app',
+            data : {  },
+            methods : {
+                divClick() {
+                    console.log("div被点击");
+                },
+
+                buttonClick() {
+                    console.log("button被点击");
+                },
+
+                linkClick() {
+                    console.log("链接被点击");
+                }
+             }    
+        });
+    </script>
+</body>
+
+</html>

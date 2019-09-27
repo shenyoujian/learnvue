@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!--1、导包-->
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    
+    <!--2、数据输出区域-->
+    <div id="app">
+        <input type="button" value="滚动" @click="gun"></input>
+        <input type="button" value="低调" @click="stop"></input>
+        <div>{{msg}}</div>
+    </div>
+
+    <!--3、实例化一个vue-->
+    <script>
+        var vm = new Vue({
+            el : '#app',
+            data : {
+                msg : '兰诗静我爱你!!!',
+                intervalId : null,      //3、定时器setInterval()函数会返回一个东西，如果
+                //我们在gun函数里定义这个变量，stop函数就获取不到，所以在data里定义全局变量。
+            },
+
+            methods: {
+
+                
+                gun() {
+                    //如果当前有定时器在运行，则直接return，如果不判断当点击多次的时候就会启动多个定时器
+                    if(this.intervalId != null) {
+                        return;
+                    }
+                   
+                    //
+
+                    this.intervalId = setInterval(() => {
+                        console.log(this.intervalId);
+                        this.msg = this.msg.substring(1) + this.msg.substring(0,1);
+                    }, 400)  
+                },
+
+                stop() {
+                   clearInterval(this.intervalId);      //清除定时器
+                   console.log(this.intervalId);
+                   this.intervalId = null;  //清除定时器但是intervalId的值还是存在的，所以得重新设置为null否则再也启动不了定时器
+                }
+            },
+        });
+    </script>
+
+    
+</body>
+</html>
