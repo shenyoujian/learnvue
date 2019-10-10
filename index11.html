@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件知识点</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id='app'>
+        <counter @change='parentClick' ref='one'></counter>
+        <counter @change='parentClick' ref='two'></counter>
+        <div>{{total}}</div>
+    </div>
+
+    <script>
+
+        Vue.component('counter', {
+            data : function() {
+                return {
+                    number : 0,
+                }
+            },
+            template : '<div @click="childClick">{{number}}</div>',
+            methods: {
+                childClick : function() {
+                    this.number++
+                    this.$emit('change')
+                }
+            },
+        })
+
+        var vm = new Vue({
+            el : '#app',
+            data : {
+                total : 0,
+
+            },
+            methods : {
+                parentClick : function() {
+                    this.total = this.$refs.one.number + this.$refs.two.number
+                }
+            }
+        })
+    </script>
+</body>
+</html>

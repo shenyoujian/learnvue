@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件细节点</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id='app'>
+        <table>
+            <tbody>
+                <tr is='row'></tr>
+                <tr is='row'></tr>
+                <tr is='row'></tr>
+               <!-- <row></row>
+               <row></row>
+               <row></row> -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id='app2'>
+        <table>
+            <tbody>
+                <tr is='row'></tr>
+                <tr is='row'></tr>
+                <tr is='row'></tr>    
+            </tbody>
+        </table>
+    </div>
+
+    <div id='app3'>
+        <div ref='hello' @click='handleChange'>
+            hello world
+        </div>
+    </div>
+
+    <div id='app4'>
+        <counter @change='handleChange' ref='one'></counter>
+        <counter @change='handleChange' ref='two'></counter>
+        <div>{{total}}</div>
+    </div>
+    <script>
+        Vue.component('counter', {
+            data : function() {
+                return {
+                    number : 0
+                }
+            },
+            template : '<div @click="handleClick">{{number}}</div>',
+            methods : {
+                handleClick : function() {
+                    this.number ++,
+                    //子组件向外传递
+                    this.$emit('change')
+                }
+            }
+        })
+
+        Vue.component('row', {
+            data : function() {
+                return {
+                    content : 'this is a row'
+            }},
+            template : '<tr><td>{{content}}</td></tr>',
+        })
+
+        var vm = new Vue({
+            el : '#app4',
+            data : {
+                total : 0,
+            },
+            methods: {
+                handleChange : function() {
+                    //每点击一下就打印出div标签的dom元素
+                   //这时候怎么获取子组件的东西呢，使用ref
+                    this.total = this.$refs.one.number + this.$refs.two.number
+
+                },
+            },
+
+        })
+        //1、app1如上的页面渲染row组件会渲染到table外面（页面查看元素），因为html5不识别row，它只知道tr在table里
+        //可以使用is属性
+        //2、app2就是父组件的data是一个对象，而子组件的data必须是一个function，因为子组件可以有多个实例，使用函数的目的就让每个实例都有一个独立的数据存储
+        //3、ref 当标签使用ref的时候，vue父组件就可以根据refs获取标签的dom元素
+        //当子组件使用ref的时候, refs获取的是这个子组件的引用
+    </script>
+    
+</body>
+</html>

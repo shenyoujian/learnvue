@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id='app'>
+        <!--列表渲染，最好有一个key,这个key不要使用index-->
+        <!-- <div v-for='(item, index) in list' :key='item.id'>
+            {{item.text}}========{{index}}
+        </div> -->
+        <template v-for='(item, index) of list' :key='item.id'>
+            <div>
+                {{item.text}}======={{item.id}}======{{index}}
+            </div>
+            <span>
+                {{item.text}}======={{item.id}}======{{index}}
+            </span>
+        </template>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el : '#app',
+            // data : {
+            //     user : {
+            //         name : 'dell',
+            //         age : '28',
+            //         sex : 'male',
+            //     }
+            // }
+            data : {
+                list : [{
+                    id : '1',
+                    text : 'A'
+                },{
+                    id : '2',
+                    text : 'B'
+                },{
+                    id : '3',
+                    text : 'C'
+                }]
+            }
+        })
+
+        //总结
+        //1、列表渲染，最好有一个key,这个key不要使用index
+        //2、添加数据，不能使用下标添加例如，vm.list[3] = {id:'4',text:'D'}这样虽然能添加进来，但是页面不会循环出来也就是不会显示
+        //3、改变数组的数组并且显示在页面有三种方法
+        //第一种是使用变异方法，有七种
+        //push() pop() shift() unshift() splice() sort() reverse()
+        //第二种是改变引用重新赋值一个数组
+        //vm.list = [{
+            //          id : '1',
+            //         text : 'A'
+            //     },{
+            //         id : '2',
+            //         text : 'B'
+            //     },{
+            //         id : '3',
+            //         text : 'C'
+            //     }, {
+            //         id : '4',
+            //         text : 'D'
+            //     }]
+        //第三种是使用set方法
+        //Vue.set(vm.list, {id:'4', text:'D'}})或者vue.$set(vm.list, {id:'4', text:'D'}})
+        //4、改变对象数据并且显示在页面上有两种
+        //第一种是改变引用第二种是set方法
+        //5、template标签不会被渲染到页面上
+    </script>
+</body>
+</html>

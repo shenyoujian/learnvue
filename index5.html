@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue生命周期的钩子函数</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id='app'>{{test}}</div>
+    <script>
+        var vm = new Vue({
+            el : '#app',
+            data : {
+                test : 'hello'
+            },
+            beforeCreate() {
+                console.log('beforeCreate')
+            },
+
+            created() {
+                console.log('created')
+            },
+
+            beforeMount() {
+                //helloword还没有渲染到页面上
+                console.log(this.$el)
+                console.log('beforeMount')
+            },
+
+            mounted() {
+                //helloworld渲染到页面上
+                console.log(this.$el)
+                console.log('mounted')
+            },
+
+            //调用vm.$destory()
+            beforeDestroy() {
+                console.log('beforeDestroy')
+            },
+
+            destroyed() {
+                console.log('destroyed')
+            },
+
+            //当数据被修改的时候调用
+            beforeUpdate() {
+                console.log('beforeUpdate')
+            },
+
+            updated() {
+                console.log('updated')
+            },
+
+        })    
+    </script>
+</body>
+</html>

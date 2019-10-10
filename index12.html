@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父组件向子组件传值</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id='app'>
+        <counter :value='value1'></counter>
+        <counter :value='value2'></counter>
+    </div>
+    
+    
+    <script>
+        Vue.component('counter', {
+            props : ['value'],
+            template : '<div>{{number}}</div>',
+            data : function() {
+                return {
+                    number : this.value
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el : '#app',
+            
+            data : {
+                value1 : '1',
+                value2 : '2'
+            }
+        })
+        //父组件向子组件传值是通过属性绑定的方式:props+v-bind
+        //子组件向父组件传值是通过动作：emit
+        //子组件不要修改父组件传递过来的值
+    </script>
+    
+</body>
+</html>

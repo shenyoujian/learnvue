@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件参数校验和非props特性</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id = 'app'>
+        <child :content='value'></child>
+    </div>
+    <script>
+        Vue.component('child', {
+            template : '<div>{{content}}</div>',
+            props : {
+                content : {
+                type : String,              //类型
+                required : true,            //是否必须
+                default : 'abcdf',            //默认值
+                validator : function(value) {       //校验器
+                    return (value.length > 5)
+                }}
+            }
+        })
+
+        var vm = new Vue({
+            el : '#app',
+            data : {
+                value : 'abcddd'
+            }
+        })
+
+        //组件参数校验就是父组件传递给子组件的值，子组件要对其进行校验
+        //非props特性就是子组件没有props去接收父组件的值:content='value'就会渲染出来
+    </script>
+</body>
+</html>

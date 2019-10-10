@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>子组件向父组件传值</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+     <!--点击li上就删除list里对应的值，从子组件传递index给父组件去删除list里的值-->
+    <div id='app'>
+        <input type="text" v-model='value'>
+        <button @click='onchange()'>添加</button>
+        <ul>
+            <todo-list :item='item' :index='index' v-for="(item, index) in list" @delete='parentDel(index)'></todo-list>
+        </ul>
+    </div>
+   
+    
+
+    <script>
+        Vue.component('TodoList', {
+            props : ['item', 'index'],
+            template : '<li @click="del()">{{item}}</li>',
+            methods: {
+                del : function() {
+                    console.log(this.index)
+                    this.$emit('delete', this.index)
+                    
+            }}
+        })
+            
+
+        var vm = new Vue({
+            el : '#app',
+            data : {
+                value : '',
+                list : []
+            },
+            methods: {
+                onchange: function() {
+                    this.list.push(this.value)
+                    this.value = ''
+                },
+
+                parentDel: function(index) {
+                    console.log(index)
+                    this.list.splice(index, 1)
+                    
+                }
+            },
+        })
+    </script>
+</body>
+</html>
