@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父子组件传值(bus/总线/发布订阅模式/监听者模式)</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id='app'>
+        <child :content='value1'></child>
+        <child :content='value2'></child>
+    </div>
+    <script>
+        //给每个vue实例设置一个bus属性
+        Vue.prototype.bus = new Vue()
+
+        Vue.component('child', {
+            data : function() {
+                return {
+                    selfContent : this.content
+                }
+            },
+            template : '<div @click="click">{{selfContent}}</div>',
+            props : ['content'],
+            methods: {
+                click : function() {
+                    this.bus.$emit('change', this.selfContent)
+                }
+            },
+            mounted() {
+                var _this = this
+                _this.bus.$on('change', function(msg) {
+                    _this.selfContent = msg
+                })
+            },
+        })
+
+        var vm = new Vue({
+            el : '#app',
+            data : {
+                value1 : 'dell',
+                value2 : 'dell2'
+            }
+
+        })
+    </script>
+</body>
+</html>

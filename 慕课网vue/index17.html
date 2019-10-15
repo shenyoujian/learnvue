@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>作用域插槽</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id='app'>
+        <show>
+            <template slot-scope='props'>
+                <h1>{{props.item}}</h1>
+            </template>
+        </show>
+    </div>
+
+    <script>
+
+        Vue.component('show', {
+            data : function() {
+                return {
+                    list : [1,2,3,4]
+                }
+            },
+            template : `
+            <div>
+            <slot v-for="item of list" :item='item'></slot></div>`
+        })
+        var vm = new Vue({
+            el : '#app',
+        })
+        //作用域插槽的意思就是插槽想要循环展示数据，但是数据样式不是插槽决定的而是父组件决定的
+    </script>
+</body>
+</html>

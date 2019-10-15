@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Markdown笔记本</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.3/vue.js"></script>
+    <script src="https://cdn.bootcss.com/marked/0.6.0/marked.js"></script>
+</head>
+<body>
+    <!--笔记本应用-->
+    <div id="notebook">
+        <section class="main">
+            <textarea v-model="content"></textarea>
+        </section>
+    </div>
+
+    <!--预览面板-->
+    <aside class="preview">
+        {{ notePreview }}
+    </aside>
+
+
+    <!--一些javascript代码-->
+    <script src="script.js"></script>
+    <script>
+        //测试marked库
+        const html = marked('**Bold** *Italic* [link] (http://vuejs.org)')
+        console.log(html)
+    </script>
+</body>
+</html>

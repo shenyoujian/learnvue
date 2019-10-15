@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue中的动画效果</title>
+    <script src="vue.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+        }
+        .v-enter-active,
+        .v-leave-active {
+            transition: opacity 3s;
+        }
+    </style>
+</head>
+<body>
+    <div id='app'>
+        <transition>
+            <div v-if='show'>hello world</div>
+        </transition>
+        <button @click='click'>按钮</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el : '#app',
+            data : {
+                show : true
+            },
+            methods: {
+                click : function() {
+                    this.show = !this.show
+                }
+            },
+        })
+    </script>
+</body>
+</html>

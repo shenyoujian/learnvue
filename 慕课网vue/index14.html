@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id = 'app'>
-        <child @click='click'></child>     <!--没有的不会调用父组件的click方法，父组件的方法只有标签能绑定-->
+        <child @click='click'></child>     <!--没有的不会调用父组件的click方法，父组件的方法只有标签能绑定,所以这行会报错-->
         <child @click.native='click'></child>       <!--这样就可以-->
     </div>
     <script>
