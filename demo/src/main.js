@@ -4,6 +4,8 @@ import App from './App.vue'
 import "../node_modules/bootstrap/dist/css/bootstrap.css"
 import "./assets/css/index.css"
 import VueRouter from 'vue-router' //加载路由模块
+import Foo from './components/Foo.vue'
+import Bar from './components/Bar.vue'
 
   // 配置路由表
   const appRouter = new VueRouter({
@@ -18,16 +20,15 @@ import VueRouter from 'vue-router' //加载路由模块
       {
         path: '/foo',
         component: {
-          template: `<div>foo 组件阿</div>`
+          template: Foo
         }
       },
       {
         path: '/bar',
-        component: {
-          template: `<div>bar 组件阿</div>`
-        }
+        component: Bar
 
-      }]
+      },
+    ]
   })
 
 new Vue({
