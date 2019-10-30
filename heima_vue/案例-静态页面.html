@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #app {
+            width: 600px;
+            margin: 10px auto;
+        }
+        
+        .tb {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .tb th {
+            background-color: #0094ff;
+            color: white;
+        }
+        
+        .tb td,
+        .tb th {
+            padding: 5px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        
+        .add {
+            padding: 5px;
+            border: 1px solid black;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script src="./vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+    <div class="add">
+        品牌名称:
+        <input type="text" v-model="value">
+        <input type="button" @click="add()" value="添加">
+    </div>
+
+    <div class="add">
+        品牌名称:
+        <input type="text" v-model="value" @click="search(value)" placeholder="请输入搜索条件">
+    </div>
+
+    <div>
+        <table class="tb">
+            <tr>
+                <th>编号</th>
+                <th>品牌名称</th>
+                <th>创立时间</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="(item, index) in list" :key="index">
+                <td>{{item.count}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.createTime}}</td>
+                <td>
+                    <a href="#" @click.prevent="del(index)">删除</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" v-if="list.length===0">没有品牌数据</td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data: {
+                value: '',
+                list: [],
+                count:1
+            },
+            methods: {
+                add() {
+                  this.list.push({count:this.count++, name: this.value, createTime:new Date()})  
+                  this.value = ''
+                },
+                del(key) {
+                    this.list.splice(key,1)
+                },
+                search(value) {
+                    this.list.filter(item => item.name=value)
+                },
+                test() {
+                    console.log(this.list)
+                }
+            }
+            
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue中的插槽</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id='app'>
+        <show :content='content'>
+            <div class='header' slot='header'>header</div>
+            <div class='footer' slot='footer'>footer</div>
+        </show>
+    </div>
+
+    <script>
+
+        Vue.component('show', {
+            props : ['content'],
+            template : `
+            <div>
+            <slot name='header'></slot>
+            <div>{{content}}</div>
+            <slot name='footer'></slot></div>`
+        })
+        var vm = new Vue({
+            el : '#app',
+            data : {
+                content : 'abc'
+            }
+        })
+        //插槽的意思就是在组件中插入dom元素
+    </script>
+</body>
+</html>

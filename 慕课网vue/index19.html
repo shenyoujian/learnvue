@@ -4,22 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>vue中的动画效果</title>
+    <title>使用animate.css库</title>
     <script src="vue.js"></script>
-    <style>
-        .v-enter,
-        .v-leave-to {
-            opacity: 0;
-        }
-        .v-enter-active,
-        .v-leave-active {
-            transition: opacity 3s;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="./animate.css"
 </head>
 <body>
     <div id='app'>
-        <transition>
+        <transition name="fade" enter-active-class="animated swing"
+        leave-active-class="animated shake">
             <div v-if='show'>hello world</div>
         </transition>
         <button @click='click'>按钮</button>
@@ -36,7 +28,7 @@
                 }
             },
         })
-        //总结：vue中的过度样式，1、只需要在代码上加上transition标签，再给标签加上样式就行了
+        //总结：使用animate.css就可以不用自己写复杂的css样式，
     </script>
     
 </body>
